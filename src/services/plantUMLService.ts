@@ -9,7 +9,9 @@ export class PlantUMLService {
     }
 
     public isValidPlantUMLCode(code: string): boolean {
-        return code.includes('@startuml') && code.includes('@enduml');
+        // Match any @startXYZ ... @endXYZ pattern
+        const regex = /@start([a-z0-9_]+)[\s\S]*?@end\1/i;
+        return regex.test(code);
     }
 
     public generateSVGUrl(code: string): string {
